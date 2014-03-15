@@ -1,11 +1,11 @@
-function vecint_NumberBase = number_representation(int_Number, int_Power, int_Base)
-% ¿é¤J¤T­Ó¥¿¾ã¼Æ: number ºû«× Base
-% Eg: number_representation(999, 4, 7) ·Q§â999ªí¥Ü¦¨ 999 = 2*7^3 + 6*7^2 + 2*7 + 5
-% ¨Ã¦^¶Ç [2 6 2 5]
-% ¦ı¥Ñ©ómatlab¯x°}ªºindex³£¬O±q1¶}©lºâ°_ ©Ò¥H¬°¤F¤è«K¨Ï¥Î¦^¶Ç[3 7 3 6]
+ï»¿function vecint_NumberBase = number_representation(int_Number, int_Power, int_Base)
+% è¼¸å…¥ä¸‰å€‹æ­£æ•´æ•¸: number ç¶­åº¦ Base
+% Eg: number_representation(999, 4, 7) æƒ³æŠŠ999è¡¨ç¤ºæˆ 999 = 2*7^3 + 6*7^2 + 2*7 + 5
+% ä¸¦å›å‚³ [2 6 2 5]
+% ä½†ç”±æ–¼matlabçŸ©é™£çš„indexéƒ½æ˜¯å¾1é–‹å§‹ç®—èµ· æ‰€ä»¥ç‚ºäº†æ–¹ä¾¿ä½¿ç”¨å›å‚³[3 7 3 6]
 vecint_NumberBase = zeros(1, int_Power);
 for j = 1:int_Power
-    Remainder = mod(int_Number, int_Base); % ¾l¼Æ
+    Remainder = mod(int_Number, int_Base); % é¤˜æ•¸
     vecint_NumberBase(j) = Remainder + 1;
     int_Number = (int_Number - Remainder) / int_Base;
 end

@@ -1,7 +1,7 @@
-function mtxsymdb_InterpolationPolynomial = lagrange(vecdb_PointY)
-global int_SymbolNum % ¹ï¨C­Óvariable¡Asample pointsªº­Ó¼Æ
-global mtxsymdb_LagrangeBasis % lagrange interpolationªº°ò©³
-if(sum(abs(vecdb_PointY)) == 0) % ÁÍªñ©ó¹s¦h¶µ¦¡
+ï»¿function mtxsymdb_InterpolationPolynomial = lagrange(vecdb_PointY)
+global int_SymbolNum % å°æ¯å€‹variableï¼Œsample pointsçš„å€‹æ•¸
+global mtxsymdb_LagrangeBasis % lagrange interpolationçš„åŸºåº•
+if(sum(abs(vecdb_PointY)) == 0) % è¶¨è¿‘æ–¼é›¶å¤šé …å¼
     mtxsymdb_InterpolationPolynomial = sym(0);
     return;
 end
@@ -13,6 +13,6 @@ for i = 1:int_SymbolNum
 end
 
 mtxsymdb_InterpolationPolynomial = [mtxsymdb_InterpolationPolynomial' sym(int_SymbolNum-1:-1:0)'];
-mtxsymdb_InterpolationPolynomial(abs(mtxsymdb_InterpolationPolynomial(:,1)) == 0, :) = []; % §R±¼¦h¶µ¦¡¤¤¡A«Y¼Æµ¥©ó¹sªºTerm
+mtxsymdb_InterpolationPolynomial(abs(mtxsymdb_InterpolationPolynomial(:,1)) == 0, :) = []; % åˆªæ‰å¤šé …å¼ä¸­ï¼Œä¿‚æ•¸ç­‰æ–¼é›¶çš„Term
 end
 

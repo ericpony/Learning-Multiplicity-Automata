@@ -1,26 +1,26 @@
-function am()
+ï»¿function am()
 global mtxdb_TargetPolynomial % Target polynomial
-global int_VariableNum % Target polynomailªºÅÜ¼Æ­Ó¼Æ
-global int_TermNum % Taget polynomialªº¶µ¼Æ
-global int_SymbolNum % ¨C­ÓÅÜ¼Æ¤§¨ú¼ËÂI­Ó¼Æ
-global int_Rank % ¬ö¿ıºtºâªk¥Ø«eªº¶¥¼Æ
+global int_VariableNum % Target polynomailçš„è®Šæ•¸å€‹æ•¸
+global int_TermNum % Taget polynomialçš„é …æ•¸
+global int_SymbolNum % æ¯å€‹è®Šæ•¸ä¹‹å–æ¨£é»å€‹æ•¸
+global int_Rank % ç´€éŒ„æ¼”ç®—æ³•ç›®å‰çš„éšæ•¸
 global vecsymdb_Symbol
 
-clc; % ²M°£ History Command
+clc; % æ¸…é™¤ History Command
 tic;
 
-%============¨C­ÓÅÜ¼Æ¤§¨ú¼ËÂI===============
-vecsymdb_Symbol = sym(-5:5); % ¨C­ÓÅÜ¼Æ¤§¨ú¼ËÂI
-int_SymbolNum = size(vecsymdb_Symbol, 2); % ¤@­ÓÅÜ¼Æªº¨ú¼ËÂI­Ó¼Æ
+%============æ¯å€‹è®Šæ•¸ä¹‹å–æ¨£é»===============
+vecsymdb_Symbol = sym(-5:5); % æ¯å€‹è®Šæ•¸ä¹‹å–æ¨£é»
+int_SymbolNum = size(vecsymdb_Symbol, 2); % ä¸€å€‹è®Šæ•¸çš„å–æ¨£é»å€‹æ•¸
 if(int_SymbolNum < 1)
   	error('Invalid Symbol Vector!');
 end
 
-fprintf('¨ú¼ËÂI:');
+fprintf('å–æ¨£é»:');
 display(vecsymdb_Symbol);
 %==========================================
 
-%=====­pºâLagrange interpolation basis=====
+%=====è¨ˆç®—Lagrange interpolation basis=====
 global  mtxsymdb_LagrangeBasis
 mtxsymdb_LagrangeBasis = sym(zeros(int_SymbolNum, int_SymbolNum));
 for i = 1:int_SymbolNum
@@ -35,9 +35,9 @@ end
 %==========================================
 
 %===========Target polynomial==============
-load input.txt; % ±qÀÉ®×¸ü¤J¯x°}
+load input.txt; % å¾æª”æ¡ˆè¼‰å…¥çŸ©é™£
 mtxdb_TargetPolynomial = input(:, :);
-int_VariableNum = size(mtxdb_TargetPolynomial, 2) - 1; % ÅÜ¼Æ­Ó¼Æ
+int_VariableNum = size(mtxdb_TargetPolynomial, 2) - 1; % è®Šæ•¸å€‹æ•¸
 int_TermNum = size(mtxdb_TargetPolynomial, 1);
 
 if(int_VariableNum < 1 || int_TermNum < 1)
@@ -46,21 +46,21 @@ end
 %==========================================
 
 %==================STEP1===================
-% ¥D­n¥Øªº:Initialization
+% ä¸»è¦ç›®çš„:Initialization
 cellvecsymdb_SymbolX = {[]; choose_nonezero_string()};
 cellvecsymdb_SymbolY = cellvecsymdb_SymbolX;
-int_Rank = 2; % ¥Ñ©óPolynomial Learning¦³¨Ç¯S®í¡A»İ­n±qint_Rank=2¶}©l
+int_Rank = 2; % ç”±æ–¼Polynomial Learningæœ‰äº›ç‰¹æ®Šï¼Œéœ€è¦å¾int_Rank=2é–‹å§‹
 
 vecsymdb_AcceptingState = member_query(cellvecsymdb_SymbolX{1});
-mtxdb_Hankel = sym([1 0; 0 0]); % ªÅ¦r¦ê¹w³]ªº¨ç¼Æ­È¬°1
+mtxdb_Hankel = sym([1 0; 0 0]); % ç©ºå­—ä¸²é è¨­çš„å‡½æ•¸å€¼ç‚º1
 
-% ªì©l¤Æarydb_MemberQuery¡C¬°¤FÁ×§K­«½ÆMember Querry¡A¨Ï¥Î¤@­Óarydb_MemberQuery§â¤w¸g°İ¹Lªº­È«O¦s°_¨Ó¡C
+% åˆå§‹åŒ–arydb_MemberQueryã€‚ç‚ºäº†é¿å…é‡è¤‡Member Querryï¼Œä½¿ç”¨ä¸€å€‹arydb_MemberQueryæŠŠå·²ç¶“å•éçš„å€¼ä¿å­˜èµ·ä¾†ã€‚
 arydb_MemberQuery = sym(zeros(int_SymbolNum, 1, 1));
 
 %===========Algorithm Begin===========
 while int_Rank < 100
     % Initialize
-    fprintf('ºtºâªk¥Ø«e¶]¨ì %d ¶¥\n', int_Rank);
+    fprintf('æ¼”ç®—æ³•ç›®å‰è·‘åˆ° %d éš\n', int_Rank);
     vecsymdb_AcceptingState(int_Rank) = member_query(cellvecsymdb_SymbolX{int_Rank});  
     arysymdb_SymbolWeighting = sym(zeros(int_SymbolNum, int_Rank, int_Rank));
     
@@ -71,7 +71,7 @@ while int_Rank < 100
     mtxdb_Hankel(int_Rank, int_Rank) = member_query([cellvecsymdb_SymbolX{int_Rank} cellvecsymdb_SymbolY{int_Rank}]);
 
 %===========STEP2================
-% ¥D­n¥Øªº:­pºâ¨C­Ósymbolªºweighting matrix (cellmtxdb_SymbolWeighting)
+% ä¸»è¦ç›®çš„:è¨ˆç®—æ¯å€‹symbolçš„weighting matrix (cellmtxdb_SymbolWeighting)
     mtxdb_InverseHankel = inv(mtxdb_Hankel);
     for i = 1:int_SymbolNum
         for j = 1:int_Rank-1
@@ -99,7 +99,7 @@ while int_Rank < 100
             matrix_Temp = sym(matrix_Temp * reshape(arysymdb_SymbolWeighting(vecint_IndexCounterExample(j), :, :), int_Rank, int_Rank));
         end
         
-        % §ä¥X­nÂX¥R¨ì cellvecsymdb_SymbolX ¤Î cellvecsymdb_SymbolY ªº string
+        % æ‰¾å‡ºè¦æ“´å……åˆ° cellvecsymdb_SymbolX åŠ cellvecsymdb_SymbolY çš„ string
         j = 0;
         while(j < int_Rank && flag) % run through y
 	    	j = j + 1; 
@@ -129,9 +129,9 @@ disp(mtxdb_PolyGuess);
 end
 
 function vecdbsym_PolyMulResult = polymul(vecdbsym_Poly1, vecdbsym_Poly2)
-% ¦P¤@­Óvariableªº¦h¶µ¦¡­¼ªk
+% åŒä¸€å€‹variableçš„å¤šé …å¼ä¹˜æ³•
 % Eg: (X^2 + 1) * X = (X^3 +  X)
-% => polymul([1 0 1], [1 1]) ·|ouput [1 0 1 0]
+% => polymul([1 0 1], [1 1]) æœƒouput [1 0 1 0]
 int_DegPoly1 = size(vecdbsym_Poly1, 2);
 int_DegPoly2 = size(vecdbsym_Poly2, 2);
 vecdbsym_PolyMulResult = sym(zeros(1, int_DegPoly1 + int_DegPoly2 - 1));
@@ -143,7 +143,7 @@ end
 end
 
 function vecsymdbNonezeroString = choose_nonezero_string()
-% ¨ç¦¡¥Ø¼Ğ:§Æ±æ¦b target polynomial ªº©w¸q°ì¤W¤W§ä¤@­ÓÂI¡A¨ä¨ç¼Æ­È¤£¬O¹s
+% å‡½å¼ç›®æ¨™:å¸Œæœ›åœ¨ target polynomial çš„å®šç¾©åŸŸä¸Šä¸Šæ‰¾ä¸€å€‹é»ï¼Œå…¶å‡½æ•¸å€¼ä¸æ˜¯é›¶
 global int_SymbolNum int_VariableNum
 global vecsymdb_Symbol
 
@@ -151,10 +151,10 @@ global vecsymdb_Symbol
 for i = 0:int_SymbolNum ^ int_VariableNum - 1
     vecsymdbNonezeroString = vecsymdb_Symbol(number_representation(i, int_VariableNum, int_SymbolNum));
     if(member_query(vecsymdbNonezeroString) ~= 0)
- 		return; % §ä¨ì¨ç¼Æ­È«D¹sªº¨ú¼ËÂI
+ 		return; % æ‰¾åˆ°å‡½æ•¸å€¼éé›¶çš„å–æ¨£é»
     end
 end
-error('Invalid Target Function'); % §ä¤£¨ì¨ç¼Æ­È«D¹sªº¨ú¼ËÂI
+error('Invalid Target Function'); % æ‰¾ä¸åˆ°å‡½æ•¸å€¼éé›¶çš„å–æ¨£é»
 
 end
 

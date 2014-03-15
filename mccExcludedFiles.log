@@ -1,4 +1,4 @@
-This file contains the list of various toolbox functions that are not 
+﻿This file contains the list of various toolbox functions that are not 
 included in the CTF file. An error will be thrown if any of these functions 
  are called at run-time. Some of these functions may be from toolboxes 
 that you are not using in your application. The reason for this is that 

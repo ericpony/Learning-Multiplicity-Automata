@@ -1,11 +1,11 @@
-function mtxdb_FianllHypothesis = am2poly(arydb_SymbolWeighting, vecdb_AcceptingState)
-% Input: Automata multiplicityºtºâªk²£¥Íªºweighting¯x°}¡A¥H¤Îaccepting States¦V¶q
-% Output: ¦hÅÜ¼Æªºpolynomial
-% Goal: §Q¥Îlagrange interpolation§â¦h¶µ¦¡ªº¯x°}ªí¥Ü¤è¦¡Âà¦¨¦h¶µ¦¡
-global int_VariableNum % Target polynomialªºvariable­Ó¼Æ  
-global int_SymbolNum % ¹ï¨C­Óvariable¡Asample pointsªº­Ó¼Æ
-global int_Rank % ºtºâªk¥Ø«eªº¶¥¼Æ
-cellvecsymdb_SingleSymbolHypothesis = cell(1, 1); % ¬ö¿ılagrange interpolationªºµ²ªG
+ï»¿function mtxdb_FianllHypothesis = am2poly(arydb_SymbolWeighting, vecdb_AcceptingState)
+% Input: Automata multiplicityæ¼”ç®—æ³•ç”¢ç”Ÿçš„weightingçŸ©é™£ï¼Œä»¥åŠaccepting Stateså‘é‡
+% Output: å¤šè®Šæ•¸çš„polynomial
+% Goal: åˆ©ç”¨lagrange interpolationæŠŠå¤šé …å¼çš„çŸ©é™£è¡¨ç¤ºæ–¹å¼è½‰æˆå¤šé …å¼
+global int_VariableNum % Target polynomialçš„variableå€‹æ•¸  
+global int_SymbolNum % å°æ¯å€‹variableï¼Œsample pointsçš„å€‹æ•¸
+global int_Rank % æ¼”ç®—æ³•ç›®å‰çš„éšæ•¸
+cellvecsymdb_SingleSymbolHypothesis = cell(1, 1); % ç´€éŒ„lagrange interpolationçš„çµæœ
 
 % lagrange interpolation
 for i = 1:int_Rank
@@ -14,7 +14,7 @@ for i = 1:int_Rank
 	end
 end
 
-% §Q¥Î lagrange interpolation §ä¥Xtarget polynomia
+% åˆ©ç”¨ lagrange interpolation æ‰¾å‡ºtarget polynomia
 cellvecsymdb_FianllHypothesis = cell(1, 1);
 cellvecsymdb_TempSymbolHypothesis = cellvecsymdb_SingleSymbolHypothesis;
 for m = 1:int_VariableNum-1
@@ -28,7 +28,7 @@ for m = 1:int_VariableNum-1
     cellvecsymdb_TempSymbolHypothesis = cellvecsymdb_FianllHypothesis;
 end
 
-% §âsymbolicªº¼Æ­ÈÂà¦¨double¡A¤è«K¥H«á­pºâ
+% æŠŠsymbolicçš„æ•¸å€¼è½‰æˆdoubleï¼Œæ–¹ä¾¿ä»¥å¾Œè¨ˆç®—
 mtxdb_FianllHypothesis = zeros(size(cellvecsymdb_FianllHypothesis{2}));
 if size(cellvecsymdb_FianllHypothesis{2}(:, :), 2) == 0
     mtxdb_FianllHypothesis = [];

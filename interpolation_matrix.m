@@ -1,4 +1,4 @@
-function mtx = interpolation_matrix(cellvecdb_Hypothesis, interpolation)
+﻿function mtx = interpolation_matrix(cellvecdb_Hypothesis, interpolation)
 size_matrix = size(cellvecdb_Hypothesis, 1);
 mtx = zeros(size_matrix, size_matrix);
 for i = 1:size_matrix

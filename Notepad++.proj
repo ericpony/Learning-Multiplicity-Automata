@@ -1,0 +1,18 @@
+<NotepadPlus>
+    <Project name="Learning MA">
+        <File name="am.m" />
+        <File name="am2poly.m" />
+        <File name="equivalent_querry.m" />
+        <File name="input.txt" />
+        <File name="interpolation_matrix.m" />
+        <File name="lagrange.m" />
+        <File name="mccExcludedFiles.log" />
+        <File name="member_query.m" />
+        <File name="mq_grid.m" />
+        <File name="number_representation.m" />
+        <File name="octave-core" />
+        <File name="polyadd.m" />
+        <File name="polymul_v2.m" />
+        <File name="readme.txt" />
+    </Project>
+</NotepadPlus>

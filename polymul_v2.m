@@ -1,13 +1,13 @@
-function mtxsymdb_MulResult = polymul_v2(mtxsymdb_Polynomail1, mtxsymdb_Polynomail2)
-int_Poly1TermNum = size(mtxsymdb_Polynomail1, 1); % ¦h¶µ¦¡1ªºterm¼Æ
-int_Poly2TermNum = size(mtxsymdb_Polynomail2, 1); % ¦h¶µ¦¡2ªºterm¼Æ
+ï»¿function mtxsymdb_MulResult = polymul_v2(mtxsymdb_Polynomail1, mtxsymdb_Polynomail2)
+int_Poly1TermNum = size(mtxsymdb_Polynomail1, 1); % å¤šé …å¼1çš„termæ•¸
+int_Poly2TermNum = size(mtxsymdb_Polynomail2, 1); % å¤šé …å¼2çš„termæ•¸
 if(int_Poly1TermNum == 0 && int_Poly2TermNum == 0)
     error('Invalid Polynomial');
 end
 
 int_Poly1VarNum = size(mtxsymdb_Polynomail1, 2) - 1;
-int_Poly2VarNum = size(mtxsymdb_Polynomail2, 2) - 1; % ¦h¶µ¦¡2ªºÅÜ¼Æ­Ó¼Æ
-if(int_Poly1VarNum < 1 || int_Poly2VarNum < 1) % ¹s¦h¶µ¦¡
+int_Poly2VarNum = size(mtxsymdb_Polynomail2, 2) - 1; % å¤šé …å¼2çš„è®Šæ•¸å€‹æ•¸
+if(int_Poly1VarNum < 1 || int_Poly2VarNum < 1) % é›¶å¤šé …å¼
     mtxsymdb_MulResult = []; 
     return;
 end

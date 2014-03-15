@@ -1,8 +1,8 @@
-function vecint_IndexCounterExample = equivalent_querry(arysymdb_SymbolWeighting, vecsymdb_AcceptingState)
+ï»¿function vecint_IndexCounterExample = equivalent_querry(arysymdb_SymbolWeighting, vecsymdb_AcceptingState)
 global int_SymbolNum int_VariableNum vecsymdb_Symbol int_Rank
 
 vecint_Test = randi(int_SymbolNum ^ int_VariableNum, 100, 1);
-for i = 1:100 % ÀH¾÷´ú¸Õ100­ÓÂI¡A­Y³£º¡¨¬..´Nºâ¹ï¤F
+for i = 1:100 % éš¨æ©Ÿæ¸¬è©¦100å€‹é»ï¼Œè‹¥éƒ½æ»¿è¶³..å°±ç®—å°äº†
 	mtxsymdb_Temp = zeros(1, int_Rank);
     mtxsymdb_Temp(1) = 1;
     vecint_IndexCounterExample = number_representation(vecint_Test(i), int_VariableNum, int_SymbolNum);
@@ -14,6 +14,6 @@ for i = 1:100 % ÀH¾÷´ú¸Õ100­ÓÂI¡A­Y³£º¡¨¬..´Nºâ¹ï¤F
  		return;
     end
 end
-vecint_IndexCounterExample = []; % ªí¥Ü¾Ç¨ìªº¨ç¼Æ¦b¨ú¼ËÂI¤W¬Ò¬Ûµ¥
+vecint_IndexCounterExample = []; % è¡¨ç¤ºå­¸åˆ°çš„å‡½æ•¸åœ¨å–æ¨£é»ä¸Šçš†ç›¸ç­‰
 
 end

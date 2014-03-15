@@ -1,4 +1,4 @@
-function symdb_RequestValue = member_query(vecsymdb_RequestPoint)
+﻿function symdb_RequestValue = member_query(vecsymdb_RequestPoint)
 global mtxdb_TargetPolynomial int_VariableNum int_TermNum 
 symdb_RequestValue = sym(0);
 

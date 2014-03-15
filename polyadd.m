@@ -1,4 +1,4 @@
-function matrix_Output = polyadd(mtxint_Degree, matrix_Input)
+﻿function matrix_Output = polyadd(mtxint_Degree, matrix_Input)
 int_DiffTermNum = size(mtxint_Degree, 1);
 int_TermNum = size(matrix_Input, 1);
 matrix_Output = sym(zeros(1, size(matrix_Input, 2)));
