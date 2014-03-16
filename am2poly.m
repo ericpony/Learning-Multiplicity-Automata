@@ -1,11 +1,11 @@
 ﻿function mtxdb_FianllHypothesis = am2poly(arydb_SymbolWeighting, vecdb_AcceptingState)
-% Input: Automata multiplicity演算法產生的weighting矩陣，以及accepting States向量
-% Output: 多變數的polynomial
-% Goal: 利用lagrange interpolation把多項式的矩陣表示方式轉成多項式
-global int_VariableNum % Target polynomial的variable個數  
-global int_SymbolNum % 對每個variable，sample points的個數
-global int_Rank % 演算法目前的階數
-cellvecsymdb_SingleSymbolHypothesis = cell(1, 1); % 紀錄lagrange interpolation的結果
+% Input: Automata multiplicity 演算法產生的 weighting 矩陣，以及 accepting States 向量
+% Output: 多變數的 polynomial
+% Goal: 利用 lagrange interpolation 把多項式的矩陣表示方式轉成多項式
+global int_VariableNum 	% Target polynomial 的 variable 個數
+global int_SymbolNum 	% 對每個 variable，sample points 的個數
+global int_Rank 		% 演算法目前的階數
+cellvecsymdb_SingleSymbolHypothesis = cell(1, 1); % 紀錄 lagrange interpolation 的結果
 
 % lagrange interpolation
 for i = 1:int_Rank
@@ -14,7 +14,7 @@ for i = 1:int_Rank
 	end
 end
 
-% 利用 lagrange interpolation 找出target polynomia
+% 利用 lagrange interpolation 找出 target polynomial
 cellvecsymdb_FianllHypothesis = cell(1, 1);
 cellvecsymdb_TempSymbolHypothesis = cellvecsymdb_SingleSymbolHypothesis;
 for m = 1:int_VariableNum-1
@@ -28,7 +28,7 @@ for m = 1:int_VariableNum-1
     cellvecsymdb_TempSymbolHypothesis = cellvecsymdb_FianllHypothesis;
 end
 
-% 把symbolic的數值轉成double，方便以後計算
+% 把 symbolic 的數值轉成 double，方便以後計算
 mtxdb_FianllHypothesis = zeros(size(cellvecsymdb_FianllHypothesis{2}));
 if size(cellvecsymdb_FianllHypothesis{2}(:, :), 2) == 0
     mtxdb_FianllHypothesis = [];

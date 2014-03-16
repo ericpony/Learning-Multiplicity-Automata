@@ -1,9 +1,9 @@
 ﻿function am()
-global mtxdb_TargetPolynomial % Target polynomial
-global int_VariableNum % Target polynomail的變數個數
-global int_TermNum % Taget polynomial的項數
-global int_SymbolNum % 每個變數之取樣點個數
-global int_Rank % 紀錄演算法目前的階數
+global mtxdb_TargetPolynomial 	% Target polynomial
+global int_VariableNum 			% Target polynomail 的變數個數
+global int_TermNum 				% Taget polynomial 的項數
+global int_SymbolNum 			% 每個變數之取樣點個數
+global int_Rank 				% 紀錄演算法目前的階數
 global vecsymdb_Symbol
 
 clc; % 清除 History Command
@@ -31,7 +31,7 @@ for i = 1:int_SymbolNum
         end
     end
     mtxsymdb_LagrangeBasis(i, :) = vecdbsym_Temp;
-end
+end 
 %==========================================
 
 %===========Target polynomial==============
@@ -142,19 +142,21 @@ end
 
 end
 
-function vecsymdbNonezeroString = choose_nonezero_string()
-% 函式目標:希望在 target polynomial 的定義域上上找一個點，其函數值不是零
-global int_SymbolNum int_VariableNum
-global vecsymdb_Symbol
 
-%vecsymdbNonezeroString = zeros(1, int_VariableNum);
-for i = 0:int_SymbolNum ^ int_VariableNum - 1
-    vecsymdbNonezeroString = vecsymdb_Symbol(number_representation(i, int_VariableNum, int_SymbolNum));
-    if(member_query(vecsymdbNonezeroString) ~= 0)
- 		return; % 找到函數值非零的取樣點
-    end
-end
-error('Invalid Target Function'); % 找不到函數值非零的取樣點
+function vecsymdbNonezeroString = choose_nonezero_string()
+% 在 target polynomial 的定義域上找一個點，其函數值不是零
+
+	global int_SymbolNum int_VariableNum
+	global vecsymdb_Symbol
+
+	%vecsymdbNonezeroString = zeros(1, int_VariableNum);
+	for i = 0:int_SymbolNum ^ int_VariableNum - 1
+		vecsymdbNonezeroString = vecsymdb_Symbol(number_representation(i, int_VariableNum, int_SymbolNum));
+		if(member_query(vecsymdbNonezeroString) ~= 0)
+			return; % 找到函數值非零的取樣點
+		end
+	end
+	error('Invalid Target Function'); % 找不到函數值非零的取樣點
 
 end
 
