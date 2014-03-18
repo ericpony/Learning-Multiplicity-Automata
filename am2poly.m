@@ -1,4 +1,4 @@
-﻿function mtxdb_FianllHypothesis = am2poly(arydb_SymbolWeighting, vecdb_AcceptingState)
+function mtxdb_FianllHypothesis = am2poly(arydb_SymbolWeighting, vecdb_AcceptingState)
 % Input: Automata multiplicity 演算法產生的 weighting 矩陣，以及 accepting States 向量
 % Output: 多變數的 polynomial
 % Goal: 利用 lagrange interpolation 把多項式的矩陣表示方式轉成多項式

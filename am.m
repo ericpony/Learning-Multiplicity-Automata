@@ -1,4 +1,4 @@
-﻿function am()
+function am()
 global mtxdb_TargetPolynomial 	% Target polynomial
 global int_VariableNum 			% Target polynomail 的變數個數
 global int_TermNum 				% Taget polynomial 的項數

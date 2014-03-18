@@ -1,4 +1,4 @@
-﻿function mtxsymdb_MulResult = polymul_v2(mtxsymdb_Polynomail1, mtxsymdb_Polynomail2)
+function mtxsymdb_MulResult = polymul_v2(mtxsymdb_Polynomail1, mtxsymdb_Polynomail2)
 int_Poly1TermNum = size(mtxsymdb_Polynomail1, 1); % 多項式1的term數
 int_Poly2TermNum = size(mtxsymdb_Polynomail2, 1); % 多項式2的term數
 if(int_Poly1TermNum == 0 && int_Poly2TermNum == 0)

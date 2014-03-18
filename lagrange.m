@@ -1,4 +1,4 @@
-﻿function mtxsymdb_InterpolationPolynomial = lagrange(vecdb_PointY)
+function mtxsymdb_InterpolationPolynomial = lagrange(vecdb_PointY)
 global int_SymbolNum 			% 對每個 variable，sample points 的個數
 global mtxsymdb_LagrangeBasis 	% lagrange interpolation 的基底
 if(sum(abs(vecdb_PointY)) == 0) % 趨近於零多項式

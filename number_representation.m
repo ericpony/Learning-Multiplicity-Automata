@@ -1,4 +1,4 @@
-﻿function vecint_NumberBase = number_representation(int_Number, int_Power, int_Base)
+function vecint_NumberBase = number_representation(int_Number, int_Power, int_Base)
 % 輸入三個正整數: number 維度 Base
 % Eg: number_representation(999, 4, 7) 想把999表示成 999 = 2*7^3 + 6*7^2 + 2*7 + 5
 % 並回傳 [2 6 2 5]

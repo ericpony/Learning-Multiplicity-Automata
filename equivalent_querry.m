@@ -1,4 +1,4 @@
-﻿function vecint_IndexCounterExample = equivalent_querry(arysymdb_SymbolWeighting, vecsymdb_AcceptingState)
+function vecint_IndexCounterExample = equivalent_querry(arysymdb_SymbolWeighting, vecsymdb_AcceptingState)
 global int_SymbolNum int_VariableNum vecsymdb_Symbol int_Rank
 
 vecint_Test = randi(int_SymbolNum ^ int_VariableNum, 100, 1);
