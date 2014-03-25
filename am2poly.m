@@ -3,14 +3,14 @@ function mtxdb_FianllHypothesis = am2poly(arydb_SymbolWeighting, vecdb_Accepting
 % Output: 多變數的 polynomial
 % Goal: 利用 lagrange interpolation 把多項式的矩陣表示方式轉成多項式
 global int_VariableNum 	% Target polynomial 的 variable 個數
-global int_SymbolNum 	% 對每個 variable，sample points 的個數
+global int_SampleNum 	% 對每個 variable，sample points 的個數
 global int_Rank 		% 演算法目前的階數
 cellvecsymdb_SingleSymbolHypothesis = cell(1, 1); % 紀錄 lagrange interpolation 的結果
 
 % lagrange interpolation
 for i = 1:int_Rank
 	for j = 1:int_Rank
-        cellvecsymdb_SingleSymbolHypothesis{i, j} = lagrange(reshape(arydb_SymbolWeighting(:, i, j), 1, int_SymbolNum));
+        cellvecsymdb_SingleSymbolHypothesis{i, j} = lagrange(reshape(arydb_SymbolWeighting(:, i, j), 1, int_SampleNum));
 	end
 end
 
