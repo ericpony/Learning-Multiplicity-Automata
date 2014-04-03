@@ -7,31 +7,42 @@ function mtxdb_FinalHypothesis = am2poly(arydb_SymbolWeighting, vecdb_AcceptingS
 	global int_Rank 		% 演算法目前的階數
 	cellvecsymdb_SingleSymbolHypothesis = cell(1, 1); % 紀錄 lagrange interpolation 的結果
 
+	t0 = clock;
 	% lagrange interpolation
 	for i = 1:int_Rank
 		for j = 1:int_Rank
+			% Each cellvecsymdb_SingleSymbolHypothesis{j, i} is a univariate polynomial
 			cellvecsymdb_SingleSymbolHypothesis{i, j} = lagrange(reshape(arydb_SymbolWeighting(:, i, j), 1, int_SampleNum));
 		end
 	end
-
-	% 利用 lagrange interpolation 找出 target polynomial
-	cellvecsymdb_FinalHypothesis = cell(1, 1);
+	fprintf('Computing H: %.2f sec.\n', etime(clock, t0));
+	
+	cellvecsymdb_FinalHypothesis = cell(1, 1);	
 	cellvecsymdb_TempSymbolHypothesis = cellvecsymdb_SingleSymbolHypothesis;
 	
-	% 計算 [H(z_1) ... H(z_n)]_1 * r'
+	t0 = clock;
+	% Compute [H(z_1) ... H(z_n)]_1
 	for m = 1:int_VariableNum-1
-		for i = 1:int_Rank	% column
-			temp = [];			
-			for j = 1:int_Rank	% row
-				temp = [temp; polymul_v2(cellvecsymdb_TempSymbolHypothesis{1, j}, cellvecsymdb_SingleSymbolHypothesis{j, i})];
-			end
-			
-			% cellvecsymdb_FinalHypothesis{i} is the ith component of the 1st row vector of [H(z_1) ... H(z_m)]
+		for i = 1:int_Rank	% ith column
+			temp = [];	
+			for j = 1:int_Rank	% jth row
+				% Add row vector [H(z_1)...H(z_m)]_1 * H(z_{m+1}) to temp
+				poly1 = cellvecsymdb_TempSymbolHypothesis{1, j};
+				poly2 = cellvecsymdb_SingleSymbolHypothesis{j, i};
+				%if (isa(poly1,'double') && poly1 == 0 && isa(poly2,'double') && poly2 == 0)
+				%	temp = [temp; 0];
+				%else
+					temp = [temp; polymul_v2(poly1, poly2)];
+				%end
+			end			
+			% cellvecsymdb_FinalHypothesis{i} is the ith component of the 1st row vector of H(z_1)...H(z_{m+1})
 			cellvecsymdb_FinalHypothesis{i} = polyadd(unique(double(temp(:, 2:end)), 'rows'), temp); 
 		end
+		% H(z_1)...H(z_{m+1})
 		cellvecsymdb_TempSymbolHypothesis = cellvecsymdb_FinalHypothesis;
 	end
-
+	fprintf('Computing [H(z_1) ... H(z_n)]_1 * r: %.2f sec.\n', etime(clock, t0));
+	
 	if size(cellvecsymdb_FinalHypothesis{2}(:, :), 2) == 0
 		mtxdb_FinalHypothesis = [];
 		return;
@@ -41,5 +52,6 @@ function mtxdb_FinalHypothesis = am2poly(arydb_SymbolWeighting, vecdb_AcceptingS
 	mtxdb_FinalHypothesis = zeros(size(cellvecsymdb_FinalHypothesis{2}));
 	mtxdb_FinalHypothesis(:, 1) = cellvecsymdb_FinalHypothesis{2}(:, 1) * vecdb_AcceptingState(2);
 	mtxdb_FinalHypothesis(:, 2:end) = cellvecsymdb_FinalHypothesis{2}(:, 2:end);
+
 end
 

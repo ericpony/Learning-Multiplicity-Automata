@@ -6,8 +6,7 @@ function am()
 	global int_Rank 				% 紀錄演算法目前的階數
 	global vecsymdb_Sample
 
-	clc; % 清除 History Command
-	tic;
+	clc; % 清除 History Command	
 
 	%============每個變數之取樣點===============
 	vecsymdb_Sample = sym(-5:5); % 每個變數之取樣點
@@ -21,7 +20,8 @@ function am()
 	%==========================================
 
 	%=====計算Lagrange interpolation basis=====
-	fprintf('Computing Lagrange basis...'); 	
+	fprintf('Computing Lagrange basis...');
+	t0 = clock;
 	global  mtxsymdb_LagrangeBasis
 	mtxsymdb_LagrangeBasis = sym(zeros(int_SampleNum, int_SampleNum));
 	for i = 1:int_SampleNum
@@ -33,7 +33,7 @@ function am()
 		end
 		mtxsymdb_LagrangeBasis(i, :) = vecdbsym_Temp;
 	end 
-	fprintf('Done\n'); 
+	fprintf('elapsed time %.2f sec.\n', etime(clock, t0));
 	%==========================================
 	%display(mtxsymdb_LagrangeBasis);
 	%pause;
@@ -66,9 +66,11 @@ function am()
 
 	%===========Algorithm Begin===========
 	fprintf('\nEntering main loop:\n');
+	t1 = clock;
 	while int_Rank < 100
 		% Initialize
-		fprintf('Running iteration %d ...', int_Rank);
+		fprintf('Running iteration %02d...', int_Rank);
+		t0 = clock;
 		vecsymdb_AcceptingState(int_Rank) = member_query(cellvecsymdb_SymbolX{int_Rank});  
 		arysymdb_SymbolWeights = sym(zeros(int_SampleNum, int_Rank, int_Rank));
 		
@@ -80,7 +82,7 @@ function am()
 
 		%===========STEP2================
 		% 主要目的:計算每個 symbol 的 weighting matrix (cellmtxdb_SymbolWeighting)
-		mtxdb_InverseHankel = inv(mtxdb_Hankel);
+		%mtxdb_InverseHankel = inv(mtxdb_Hankel);
 		for i = 1:int_SampleNum
 			for j = 1:int_Rank-1
 				% arydb_MemberQuery(alphabet[i],x,y) = member_query([x alphabet[i] y])
@@ -88,7 +90,7 @@ function am()
 				arydb_MemberQuery(i, j, int_Rank) = member_query([cellvecsymdb_SymbolX{j} vecsymdb_Sample(i) cellvecsymdb_SymbolY{int_Rank}]);
 			end
 			arydb_MemberQuery(i, int_Rank, int_Rank) = member_query([cellvecsymdb_SymbolX{int_Rank} vecsymdb_Sample(i) cellvecsymdb_SymbolY{int_Rank}]);
-			arysymdb_SymbolWeights(i, :, :) = reshape(reshape(arydb_MemberQuery(i, :, :), int_Rank, int_Rank) * mtxdb_InverseHankel, 1, int_Rank, int_Rank);
+			arysymdb_SymbolWeights(i, :, :) = reshape(reshape(arydb_MemberQuery(i, :, :), int_Rank, int_Rank)/mtxdb_Hankel, 1, int_Rank, int_Rank);
 		end
 		%================================
 
@@ -97,7 +99,7 @@ function am()
 		%===========STEP3================
 		vecint_IndexCounterExample = equivalent_querry(arysymdb_SymbolWeights, vecsymdb_AcceptingState);
 		if(size(vecint_IndexCounterExample, 2) == 0) 
-			fprintf('Done\n');
+			fprintf('elapsed time %.2f sec.\n', etime(clock, t0));
 			break; % There is no counter example. We have found the target polynomial.
 		end
 		
@@ -129,22 +131,24 @@ function am()
 				end
 			end
 		end
-		fprintf('Done\n');
+		fprintf('elapsed time %.2f sec.\n', etime(clock, t0));
 	end
-	toc;
-	fprintf('Left main loop.\n');
+	
+	fprintf('Main loop takes time %.2f sec.\n', etime(clock, t1));
 	
 	%===========Algorithm End===========
-	fprintf('Running interpolation...'); 
+	fprintf('Running interpolation...');
+	t0 = clock;
 	mtxdb_PolyGuess = am2poly(arysymdb_SymbolWeights, vecsymdb_AcceptingState);
 	display(mtxdb_PolyGuess);
-	fprintf('Done\n'); 
+	fprintf('Time for doing interpolation: %.2f sec.\n', etime(clock, t0));
+	
 	% %======Draw Diagram======
-	[x, y] = meshgrid(-3:.3:3, -3:.3:3);
-	z = mq_grid(x, y, mtxdb_PolyGuess);
-	surfc(x,y,z)
-	shading interp
-	pause;
+%	[x, y] = meshgrid(-3:.3:3, -3:.3:3);
+%	z = mq_grid(x, y, mtxdb_PolyGuess);
+%	surfc(x,y,z)
+%	shading interp
+%	pause;
 end
 
 function vecdbsym_PolyMulResult = polymul(vecdbsym_Poly1, vecdbsym_Poly2)

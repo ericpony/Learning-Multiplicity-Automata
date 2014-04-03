@@ -1,8 +1,8 @@
 function mtxsymdb_MulResult = polymul_v2(mtxsymdb_Polynomail1, mtxsymdb_Polynomail2)
-	% 多項式1:	[ 1/2, 4, 1] 代表 1/2*(x^4)(y) + 3*(x^7)(y^2)
-	%			[ 3,   7, 2]
+	% 多項式1:	矩陣 [ 1/2, 4, 1] 代表 1/2*(x^4)(y) + 3*(x^7)(y^2)
+	%				[ 3,   7, 2]
 	% 多項式2 必須為 univariate, 且其變數和多項式1的變數不重複
-	% 計算結果的 column 數為 mtxsymdb_Polynomail1 的 column 數加一(多了一個變數), row 為多項式的項數
+	% 計算結果的 column 數為第一個 polynomial 的 column 數加一(因為多了一個變數), row 為多項式的項數
 	% 
 	int_Poly1TermNum = size(mtxsymdb_Polynomail1, 1); 	% 多項式1的項數
 	int_Poly2TermNum = size(mtxsymdb_Polynomail2, 1); 	% 多項式2的項數
@@ -21,6 +21,7 @@ function mtxsymdb_MulResult = polymul_v2(mtxsymdb_Polynomail1, mtxsymdb_Polynoma
 	int_MulResultTermNum = 0;	% 計算結果的項數
 	%mtxsymdb_MulResult = sym(zeros(int_Poly1TermNum * int_Poly2TermNum, int_Poly1VarNum + 2));
 	mtxsymdb_MulResult = sym(zeros(int_Poly1TermNum * int_Poly2TermNum, int_Poly1VarNum + int_Poly2VarNum + 1));
+	%mtxsymdb_MulResult = zeros(int_Poly1TermNum * int_Poly2TermNum, int_Poly1VarNum + int_Poly2VarNum + 1);
 	
 	for i = 1:int_Poly1TermNum
 		for j = 1:int_Poly2TermNum
