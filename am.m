@@ -5,11 +5,15 @@ function am()
 	global int_SampleNum 			% 每個變數之取樣點個數
 	global int_Rank 				% 紀錄演算法目前的階數
 	global vecsymdb_Sample
-
+	global member_query_cache member_query_cache_index_base
+	global interactive
+	
+	interactive = false
 	clc; % 清除 History Command	
 
 	%============每個變數之取樣點===============
-	vecsymdb_Sample = sym(-5:5); % 每個變數之取樣點
+	%vecsymdb_Sample = sym(-5:5); % 每個變數之取樣點
+	vecsymdb_Sample = sym(-1:1); % 每個變數之取樣點
 	int_SampleNum = size(vecsymdb_Sample, 2); % 一個變數的取樣點個數
 	if(int_SampleNum < 1)
 		error('Invalid Symbol Vector!');
@@ -38,18 +42,31 @@ function am()
 	%display(mtxsymdb_LagrangeBasis);
 	%pause;
 	%===========Target polynomial==============
-	load input.txt; % 從檔案載入矩陣
-	mtxdb_TargetPolynomial = input(:, :);
 	%Eg. mtxdb_TargetPolynomial = [ 4 1 2 
 	%                              -2 3 4 ]
 	% represents polynomial 4.x^1.y^2 - 2.x^3.y^4
-
-	int_VariableNum = size(mtxdb_TargetPolynomial, 2) - 1;	% 變數個數
-	int_TermNum = size(mtxdb_TargetPolynomial, 1);			% 項數
+	
+	if(interactive)
+		int_TermNum = input('Number of terms in the target polynomial: ');
+		int_VariableNum = input('Number of variables in the target polynomial: ');
+	else
+		load test.txt; % 從檔案載入矩陣
+		mtxdb_TargetPolynomial = test(:, :);		
+		int_VariableNum = size(mtxdb_TargetPolynomial, 2) - 1;	% 變數個數
+		int_TermNum = size(mtxdb_TargetPolynomial, 1);			% 項數
+	end
 
 	if(int_VariableNum < 1 || int_TermNum < 1)
 		error('Invalid target function!');
 	end
+	
+	member_query_cache = cell(size(vecsymdb_Sample,2),size(vecsymdb_Sample,2))
+	member_query_cache(:)={'x'}
+	member_query_cache_index_base = 1
+	if(min(double(vecsymdb_Sample))<0)
+		member_query_cache_index_base = member_query_cache_index_base - min(double(vecsymdb_Sample))
+	end
+	
 	%==========================================
 
 	%==================STEP1===================

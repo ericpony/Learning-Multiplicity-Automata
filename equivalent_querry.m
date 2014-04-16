@@ -1,6 +1,14 @@
 function vecint_IndexCounterExample = equivalent_querry(arysymdb_SymbolWeighting, vecsymdb_AcceptingState)
+	global interactive
+	if(interactive)
+		hypothesis = am2poly(arysymdb_SymbolWeighting, vecsymdb_AcceptingState)	
+		fprintf('=== Equivalence query for function ===')
+		display(hypothesis)
+		vecint_IndexCounterExample = sym(input('Query result: '))
+		return 
+	end
+	
 	global int_SampleNum int_VariableNum vecsymdb_Sample int_Rank
-
 	vecint_Test = randi(int_SampleNum ^ int_VariableNum, 100, 1);
 	for i = 1:100 % 隨機測試100個點，若都滿足..就算對了
 		mtxsymdb_Temp = zeros(1, int_Rank);
@@ -17,4 +25,12 @@ function vecint_IndexCounterExample = equivalent_querry(arysymdb_SymbolWeighting
 		end
 	end
 	vecint_IndexCounterExample = []; % 表示學到的函數在取樣點上皆相等
+	
+	fprintf('=== Equivalence query ===')
+	display(am2poly(arysymdb_SymbolWeighting, vecsymdb_AcceptingState));	
+	if(interactive && ~isempty(vecint_IndexCounterExample))
+		fprintf('Counterexample:');
+		display(vecint_IndexCounterExample);
+		pause;
+	end
 end
