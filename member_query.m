@@ -15,7 +15,7 @@ function symdb_RequestValue = member_query(vecsymdb_RequestPoint)
 	indices = num2cell(vecsymdb_RequestPoint + member_query_cache_index_base);
 	cached = member_query_cache(indices{:});
 	cached = cached{1,1};
-	if(cached~='x')
+	if(cached ~= 'x')
 		symdb_RequestValue = cached;
 		fprintf(strrep(['Cached value for query [' num2str(double(vecsymdb_RequestPoint), ' %d ') ']'], ']', '] is %d\n'), double(cached));
 		return
@@ -25,7 +25,7 @@ function symdb_RequestValue = member_query(vecsymdb_RequestPoint)
 		fprintf('=== Member query for points ===')
 		display(vecsymdb_RequestPoint)
 		symdb_RequestValue = sym(input('Query result: '))
-		member_query_cache(indices{:}) = symdb_RequestValue;
+		member_query_cache(indices{:}) = {symdb_RequestValue};
 		return 
 	end	
 	

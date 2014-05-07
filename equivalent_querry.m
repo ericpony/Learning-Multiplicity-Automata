@@ -1,14 +1,15 @@
 function vecint_IndexCounterExample = equivalent_querry(arysymdb_SymbolWeighting, vecsymdb_AcceptingState)
-	global interactive
+	global interactive vecsymdb_Sample int_SampleNum int_VariableNum int_Rank
 	if(interactive)
-		hypothesis = am2poly(arysymdb_SymbolWeighting, vecsymdb_AcceptingState)	
-		fprintf('=== Equivalence query for function ===')
+		hypothesis = am2poly(arysymdb_SymbolWeighting, vecsymdb_AcceptingState);
+		fprintf('=== Equivalence query for function ===');
 		display(hypothesis)
+		fprintf('Input a row of %d indices of sample point as a Cex, if any:', int_VariableNum);
+		display(vecsymdb_Sample)
 		vecint_IndexCounterExample = sym(input('Query result: '))
 		return 
 	end
 	
-	global int_SampleNum int_VariableNum vecsymdb_Sample int_Rank
 	vecint_Test = randi(int_SampleNum ^ int_VariableNum, 100, 1);
 	for i = 1:100 % 隨機測試100個點，若都滿足..就算對了
 		mtxsymdb_Temp = zeros(1, int_Rank);

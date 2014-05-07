@@ -8,12 +8,12 @@ function am()
 	global member_query_cache member_query_cache_index_base
 	global interactive
 	
-	interactive = false
+	interactive = true;
 	clc; % 清除 History Command	
 
 	%============每個變數之取樣點===============
-	%vecsymdb_Sample = sym(-5:5); % 每個變數之取樣點
-	vecsymdb_Sample = sym(-1:1); % 每個變數之取樣點
+	vecsymdb_Sample = sym(-5:5); % 每個變數之取樣點
+	%vecsymdb_Sample = sym(-1:1); % 每個變數之取樣點
 	int_SampleNum = size(vecsymdb_Sample, 2); % 一個變數的取樣點個數
 	if(int_SampleNum < 1)
 		error('Invalid Symbol Vector!');
@@ -60,11 +60,11 @@ function am()
 		error('Invalid target function!');
 	end
 	
-	member_query_cache = cell(size(vecsymdb_Sample,2),size(vecsymdb_Sample,2))
-	member_query_cache(:)={'x'}
-	member_query_cache_index_base = 1
+	member_query_cache = cell(size(vecsymdb_Sample,2),size(vecsymdb_Sample,2));
+	member_query_cache(:)={'x'};
+	member_query_cache_index_base = 1;
 	if(min(double(vecsymdb_Sample))<0)
-		member_query_cache_index_base = member_query_cache_index_base - min(double(vecsymdb_Sample))
+		member_query_cache_index_base = member_query_cache_index_base - min(double(vecsymdb_Sample));
 	end
 	
 	%==========================================
